@@ -182,9 +182,11 @@ actividades.push(new Actividad("pilates", 1000));
 actividades.push(new Actividad("yoga", 950));
 actividades.push(new Actividad("danzas", 1100));
 actividades[0].agregarProfesor(entrenadores[0]);
-actividades[1].agregarProfesor(entrenadores[1].toString());
-actividades[2].agregarProfesor(entrenadores[1].toString());
+actividades[1].agregarProfesor(entrenadores[1]);
+actividades[2].agregarProfesor(entrenadores[1]);
 actividades[0].mostrarActividad();
+
+console.log(  );
 
 const alumnos= [];
 
@@ -205,7 +207,7 @@ let cantidad = Number(prompt("Ingrese cantidad de clases a tomar por semana")); 
         
       
       alert(
-        `la clase es ${actividades[0]._entrenadores[0]}`
+        `la profesora es ${actividades[0]._entrenadores[0]._nombre} ${actividades[0]._entrenadores[0]._apellido}`
       );
     } else if (clase === "yoga") {
       alert(
