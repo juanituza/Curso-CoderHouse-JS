@@ -114,7 +114,7 @@ class Actividad {
   constructor(nombre, cuota) {
     this._idActividad = ++Actividad.contadorActividad;
     this._nombre = nombre;
-    this._cuota= cuota;
+    this._cuota = cuota;
     this._entrenadores = [];
     this._alumnos = [];
   }
@@ -169,15 +169,17 @@ class Actividad {
     );
   }
 }
-let clase = prompt(
-  "Ingrese actividad que desea consultar o realizar: PILATES, YOGA o DANZAS"
-).toLocaleLowerCase();
 
+//genero los array de entranadores que tendra el gimnasio
 const entrenadores = [];
 entrenadores.push(new Profesor("Gabriela", "Fernandez", 500));
 entrenadores.push(new Profesor("Luciana", "Ghio", 600));
 
-const actividades=[];
+// genero los alumnos que tendrá el gimnasio
+const alumnos = [];
+
+// genero las actividades que tendrá el gimnasio
+const actividades = [];
 actividades.push(new Actividad("pilates", 1000));
 actividades.push(new Actividad("yoga", 950));
 actividades.push(new Actividad("danzas", 1100));
@@ -186,12 +188,21 @@ actividades[1].agregarProfesor(entrenadores[1]);
 actividades[2].agregarProfesor(entrenadores[1]);
 actividades[0].mostrarActividad();
 
-console.log(  );
 
-const alumnos= [];
+// filtro los nombres y apellidos de los profesores para mostrar en pantalla luego
+let nombresProfesores = entrenadores.map((nombre) => nombre._nombre);
+console.log(nombresProfesores);
+let apellidosProfesores = entrenadores.map((apellido) => apellido._apellido);
+console.log(apellidosProfesores);
+
+
+
 
 
 //Solicitar al usuario que elija clase
+let clase = prompt(
+  "Ingrese actividad que desea consultar o realizar: PILATES, YOGA o DANZAS"
+).toLocaleLowerCase();
 
 // Solicitar al usuario los datos para generar alumno
 /* let nombreSocio = prompt("Ingrese su nombre").toLocaleLowerCase();
@@ -201,46 +212,39 @@ let apellidoSocio = prompt("Ingrese su apellido").toLocaleLowerCase();
 let cantidad = Number(prompt("Ingrese cantidad de clases a tomar por semana")); */
 
 //Condicional de acuerdo a lo elegido e imprimir en pantalla el resultado
-    if (clase === "pilates") {
-      // alumnos.push(nombreSocio,apellidoSocio,150);
-//      actividades[0].agregarAlumno(alumnos[0]);
-        
-      
-      alert(
-        `la profesora es ${actividades[0]._entrenadores[0]._nombre} ${actividades[0]._entrenadores[0]._apellido}`
-      );
-    } else if (clase === "yoga") {
-      alert(
-        // `la profesora es ${profesor1.nombre} `
-      );
-    } else if (clase === "danzas") {
-      alert(
-        // `la profesora es ${profesor2.nombre} `
-      );
-    } else {
-      alert("La clase no se brinda en el gimnasio");
-    }
+if (clase === "pilates") {
+  alert(
+    `la profesora es ${nombresProfesores[0]} ${apellidosProfesores[0]}`
+  );
+} else if (clase === "yoga") {
+  alert(`la profesora es ${nombresProfesores[1]} ${apellidosProfesores[1]}`);
+  
+} else if (clase === "danzas") {
+  alert(`la profesora es ${nombresProfesores[0]} ${apellidosProfesores[0]}`);
+  
+} else {
+  alert("La clase no se brinda en el gimnasio");
+}
 //Metodo con switch para calcular el precio que debería abonar
-  // calcularPrecio(clase, cantidad) {
-  //   switch (clase) {
-  //     case "pilates":
-  //       let precioFinalPilate = pilates.precioP * cantidad;
-  //       return precioFinalPilate;
-  //     case "yoga":
-  //       let precioYoga = 150;
-  //       let precioFinalYoga = precioYoga * cantidad;
-  //       return precioFinalYoga;
-  //     case "danzas":
-  //       let precioDanza = 200;
-  //       let precioFinalDanza = precioDanza * cantidad;
-  //       return precioFinalDanza;
+// calcularPrecio(clase, cantidad) {
+//   switch (clase) {
+//     case "pilates":
+//       let precioFinalPilate = pilates.precioP * cantidad;
+//       return precioFinalPilate;
+//     case "yoga":
+//       let precioYoga = 150;
+//       let precioFinalYoga = precioYoga * cantidad;
+//       return precioFinalYoga;
+//     case "danzas":
+//       let precioDanza = 200;
+//       let precioFinalDanza = precioDanza * cantidad;
+//       return precioFinalDanza;
 
-  //     default:
-  //       "La clase no se da en el gimnasio";
-  //       break;
-  //   }
-  // }
-
+//     default:
+//       "La clase no se da en el gimnasio";
+//       break;
+//   }
+// }
 
 /* 
 let profesor1 = new Profesor({
