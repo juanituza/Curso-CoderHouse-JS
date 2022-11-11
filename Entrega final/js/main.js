@@ -95,7 +95,7 @@ class Socio extends Persona {
   }
 }
 
-// ------------------------->> CLASE "CLASE" <<---------------------
+// ------------------------->> CLASE ACTIVIDAD <<---------------------
 //declaro clase actividad
 class Actividad {
   //declaro el contador para el id actividad
@@ -141,7 +141,7 @@ class Actividad {
     if (this._alumnos.length < Actividad.MAX_ALUMNOS) {
       this._alumnos.push(alumno);
     } else {
-      console.log("No se pueden agregar mas clientes");
+      console.log("No se pueden agregar mas alumnos");
     }
   }
   // metodo para agregar un profesor a la actividad
@@ -155,7 +155,7 @@ class Actividad {
 
   // metodo para mostrar alumnos y profesor de la Actividad
   mostrarActividad() {
-    let alumnosActividad = "";
+    let alumnosActividad = " ";
     for (let alumno of this._alumnos) {
       alumnosActividad += "\n{" + alumno.toString() + " }";
     }
@@ -164,9 +164,7 @@ class Actividad {
     for (let profesor of this._entrenadores) {
       profesoresActividad += "\n{" + profesor.toString() + " }";
     }
-    console.log(
-      `Actividad: ${this.idActividad} \nAlumnos: ${alumnosActividad} \nProfesor: ${profesoresActividad}`
-    );
+    return `Actividad: ${this.idActividad} \nAlumnos: ${alumnosActividad}`;
   }
 }
 
@@ -174,30 +172,23 @@ class Actividad {
 const entrenadores = [];
 entrenadores.push(new Profesor("Gabriela", "Fernandez", 500));
 entrenadores.push(new Profesor("Luciana", "Ghio", 600));
-
-// genero los alumnos que tendrá el gimnasio
-const alumnos = [];
+entrenadores.push(new Profesor("Alma", "Perez", 600));
 
 // genero las actividades que tendrá el gimnasio
-const actividades = [];
-actividades.push(new Actividad("pilates", 1000));
-actividades.push(new Actividad("yoga", 950));
-actividades.push(new Actividad("danzas", 1100));
-actividades[0].agregarProfesor(entrenadores[0]);
-actividades[1].agregarProfesor(entrenadores[1]);
-actividades[2].agregarProfesor(entrenadores[1]);
-actividades[0].mostrarActividad();
+const clases = [];
+clases.push(new Actividad("pilates", 1000));
+clases.push(new Actividad("yoga", 950));
+clases.push(new Actividad("danzas", 1100));
+// clases[0].agregarProfesor(entrenadores[0]);
+// clases[1].agregarProfesor(entrenadores[1]);
+// clases[2].agregarProfesor(entrenadores[1]);
 
 
 // filtro los nombres y apellidos de los profesores para mostrar en pantalla luego
 let nombresProfesores = entrenadores.map((nombre) => nombre._nombre);
-console.log(nombresProfesores);
 let apellidosProfesores = entrenadores.map((apellido) => apellido._apellido);
-console.log(apellidosProfesores);
-
-
-
-
+// filtro las cuotas de las clases  para mostrar en pantalla luego
+let cuotasClases = clases.map((cuota) => cuota._cuota);
 
 //Solicitar al usuario que elija clase
 let clase = prompt(
@@ -205,61 +196,73 @@ let clase = prompt(
 ).toLocaleLowerCase();
 
 // Solicitar al usuario los datos para generar alumno
-/* let nombreSocio = prompt("Ingrese su nombre").toLocaleLowerCase();
-let apellidoSocio = prompt("Ingrese su apellido").toLocaleLowerCase();
+let nombreSocio = prompt("Ingrese su nombre");
+let apellidoSocio = prompt("Ingrese su apellido");
 
 // Solicitar al usuario la cantidad de clases que quiere realizar
-let cantidad = Number(prompt("Ingrese cantidad de clases a tomar por semana")); */
+let cantidad = Number(prompt("Ingrese cantidad de clases a tomar por semana"));
+
+// genero los alumnos que tendrá el gimnasio
+const alumnos = [];
+alumnos.push(new Socio(nombreSocio, apellidoSocio));
+// alumnos.push(new Socio(Pedro, Florentin));
+//filtro por nombre y apellido al socio
+let nombreAlumno = alumnos.map((nombre) => nombre._nombre);
+let apellidoAlumno = alumnos.map((apellido) => apellido._apellido);
+
+// Metodo con switch para calcular el precio que debería abonar
+function calcularPrecio(clase, cantidad) {
+  switch (clase) {
+    case "pilates":
+      let precioFinalPilate = cuotasClases[0] * cantidad;
+      return precioFinalPilate;
+
+    case "yoga":
+      let precioFinalYoga = cuotasClases[1] * cantidad;
+      return precioFinalYoga;
+
+    case "danzas":
+      let precioFinalDanzas = cuotasClases[2] * cantidad;
+      return precioFinalDanzas;
+
+    default:
+      alert("La clase no se da en el gimnasio");
+      break;
+  }
+}
+
+let precioFinal = calcularPrecio(clase, cantidad);
 
 //Condicional de acuerdo a lo elegido e imprimir en pantalla el resultado
 if (clase === "pilates") {
   alert(
-    `la profesora es ${nombresProfesores[0]} ${apellidosProfesores[0]}`
+    `la profesora es ${nombresProfesores[0]} ${apellidosProfesores[0]} , el alumno es ${nombreAlumno[0]} ${apellidoAlumno[0]} y el precio de la clase es: $${precioFinal} 
+    `
   );
 } else if (clase === "yoga") {
-  alert(`la profesora es ${nombresProfesores[1]} ${apellidosProfesores[1]}`);
-  
+  alert(
+    `la profesora es ${nombresProfesores[1]} ${apellidosProfesores[1]} , el alumno es ${nombreAlumno[0]} ${apellidoAlumno[0]} y el precio de la clase es: $${precioFinal}`
+  );
 } else if (clase === "danzas") {
-  alert(`la profesora es ${nombresProfesores[0]} ${apellidosProfesores[0]}`);
-  
+  alert(
+    `la profesora es ${nombresProfesores[2]} ${apellidosProfesores[2]}, el alumno es ${nombreAlumno[0]} ${apellidoAlumno[0]} y el precio de la clase es: $${precioFinal}`
+  );
 } else {
   alert("La clase no se brinda en el gimnasio");
 }
-//Metodo con switch para calcular el precio que debería abonar
-// calcularPrecio(clase, cantidad) {
-//   switch (clase) {
-//     case "pilates":
-//       let precioFinalPilate = pilates.precioP * cantidad;
-//       return precioFinalPilate;
-//     case "yoga":
-//       let precioYoga = 150;
-//       let precioFinalYoga = precioYoga * cantidad;
-//       return precioFinalYoga;
-//     case "danzas":
-//       let precioDanza = 200;
-//       let precioFinalDanza = precioDanza * cantidad;
-//       return precioFinalDanza;
 
-//     default:
-//       "La clase no se da en el gimnasio";
-//       break;
-//   }
-// }
 
-/* 
-let profesor1 = new Profesor({
-  nombre: "Gabriela",
-});
-let profesor2 = new Profesor({
-  nombre: "Luciana",
-});
 
-//calculo de precio final que solicito el usuario
-let pilates = new Clase({
-  nombre: "pilates",
-  precioP: 100,
-  horario: 15,
-});
-pilates.precio();
-profesor1.asignarClase();
-profesor2.asignarClase(); */
+// let formulario = document.getElementById("formulario");
+// formulario.addEventListener("submit", (e) => {
+//   e.preventDefault();
+
+//   let inputs = e.target.children;
+//   console.log(inputs[0].value);
+//   console.log(inputs[1].value);
+// });
+// <form id="formulario">
+//   <input type="text" />
+//   <input type="number" />
+//   <input type="submit" value="Enviar" />
+// </form>;

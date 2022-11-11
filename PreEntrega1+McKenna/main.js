@@ -44,9 +44,7 @@ if (clase === "pilates") {
   alert(
     `la profesora es ${profesor1} y el precio mensual es: $${precioMensual}`
   );
-} else if (clase === "danzas") {
+} else(clase === "danzas") {
   alert(`la profesora es ${profesor2} y el precio mensual es: $${precioMensual}`
   );
-} else {
-  alert("La clase no se brinda en el gimnasio");
-}
+};
