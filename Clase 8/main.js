@@ -10,17 +10,12 @@ const productos = [
 let contenedor = document.getElementById("contenedor");
 
 productos.forEach(producto=>{
-    let item= document.createElement("div");
-    item.innerHTML=`
-       
-            
-            <td>${producto.nombre}</td>
-                  
-            <td>$${producto.precio}</td>
-       
-    
+    let item = document.createElement("tr");
+    item.innerHTML = `        
+            <td>${producto.nombre}</td>                  
+            <td>$${producto.precio}</td>    
     `;
-    item.className="verde";
+    item.className="";
     contenedor.append(item);
 
 

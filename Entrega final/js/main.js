@@ -168,6 +168,13 @@ class Actividad {
   }
 }
 
+
+//Declaro una función para capitalizar cualquier texto, poner la 1er letra mayuscula y el resto minúscula
+function capitalizarPrimeraLetra(str) {
+  return ` ${str.charAt(0).toUpperCase()}${str.slice(1).toLocaleLowerCase()}`;
+}
+
+
 //genero los array de entranadores que tendra el gimnasio
 const entrenadores = [];
 entrenadores.push(new Profesor("Gabriela", "Fernandez", 500));
@@ -199,13 +206,19 @@ let clase = prompt(
 let nombreSocio = prompt("Ingrese su nombre");
 let apellidoSocio = prompt("Ingrese su apellido");
 
+//aplico la funcion de capitalizar la letra al nombre ingresado
+let nombre1 = capitalizarPrimeraLetra(nombreSocio);
+
+//aplico la funcion de capitalizar la letra al apellido ingresado
+let apellido1 = capitalizarPrimeraLetra(apellidoSocio);
+
+
 // Solicitar al usuario la cantidad de clases que quiere realizar
 let cantidad = Number(prompt("Ingrese cantidad de clases a tomar por semana"));
 
 // genero los alumnos que tendrá el gimnasio
 const alumnos = [];
 alumnos.push(new Socio(nombreSocio, apellidoSocio));
-// alumnos.push(new Socio(Pedro, Florentin));
 //filtro por nombre y apellido al socio
 let nombreAlumno = alumnos.map((nombre) => nombre._nombre);
 let apellidoAlumno = alumnos.map((apellido) => apellido._apellido);
@@ -236,16 +249,16 @@ let precioFinal = calcularPrecio(clase, cantidad);
 //Condicional de acuerdo a lo elegido e imprimir en pantalla el resultado
 if (clase === "pilates") {
   alert(
-    `la profesora es ${nombresProfesores[0]} ${apellidosProfesores[0]} , el alumno es ${nombreAlumno[0]} ${apellidoAlumno[0]} y el precio de la clase es: $${precioFinal} 
+    `la profesora es ${nombresProfesores[0]} ${apellidosProfesores[0]} , el alumno es ${nombre1} ${apellido1} y el precio de la clase es: $${precioFinal} 
     `
   );
 } else if (clase === "yoga") {
   alert(
-    `la profesora es ${nombresProfesores[1]} ${apellidosProfesores[1]} , el alumno es ${nombreAlumno[0]} ${apellidoAlumno[0]} y el precio de la clase es: $${precioFinal}`
+    `la profesora es ${nombresProfesores[1]} ${apellidosProfesores[1]} , el alumno es ${nombre1} ${apellido1} y el precio de la clase es: $${precioFinal}`
   );
 } else if (clase === "danzas") {
   alert(
-    `la profesora es ${nombresProfesores[2]} ${apellidosProfesores[2]}, el alumno es ${nombreAlumno[0]} ${apellidoAlumno[0]} y el precio de la clase es: $${precioFinal}`
+    `la profesora es ${nombresProfesores[2]} ${apellidosProfesores[2]}, el alumno es ${nombre1} ${apellido1} y el precio de la clase es: $${precioFinal}`
   );
 } else {
   alert("La clase no se brinda en el gimnasio");
