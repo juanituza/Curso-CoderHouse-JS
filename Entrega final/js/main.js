@@ -168,12 +168,10 @@ class Actividad {
   }
 }
 
-
 //Declaro una función para capitalizar cualquier texto, poner la 1er letra mayuscula y el resto minúscula
 function capitalizarPrimeraLetra(str) {
   return ` ${str.charAt(0).toUpperCase()}${str.slice(1).toLocaleLowerCase()}`;
 }
-
 
 //genero los array de entranadores que tendra el gimnasio
 const entrenadores = [];
@@ -186,84 +184,159 @@ const clases = [];
 clases.push(new Actividad("pilates", 1000));
 clases.push(new Actividad("yoga", 950));
 clases.push(new Actividad("danzas", 1100));
+
+// localStorage.setItem("clases", JSON.stringify(clases));
 // clases[0].agregarProfesor(entrenadores[0]);
 // clases[1].agregarProfesor(entrenadores[1]);
 // clases[2].agregarProfesor(entrenadores[1]);
-
-
+console.log(clases);
 // filtro los nombres y apellidos de los profesores para mostrar en pantalla luego
 let nombresProfesores = entrenadores.map((nombre) => nombre._nombre);
 let apellidosProfesores = entrenadores.map((apellido) => apellido._apellido);
 // filtro las cuotas de las clases  para mostrar en pantalla luego
 let cuotasClases = clases.map((cuota) => cuota._cuota);
+let clasesNombre = clases.map((nombre)=>nombre._nombre);
 
-//Solicitar al usuario que elija clase
-let clase = prompt(
-  "Ingrese actividad que desea consultar o realizar: PILATES, YOGA o DANZAS"
-).toLocaleLowerCase();
 
-// Solicitar al usuario los datos para generar alumno
-let nombreSocio = prompt("Ingrese su nombre");
-let apellidoSocio = prompt("Ingrese su apellido");
+
+// //Solicitar al usuario que elija clase
+// let clase = prompt(
+//   "Ingrese actividad que desea consultar o realizar: PILATES, YOGA o DANZAS"
+// ).toLocaleLowerCase();
+
+let selectClases = document.getElementById("actividad");
+
+function mostrarArreglo(arreglo, dato) {
+  let elementos = '<option selected disabled> <--Seleccionar--> </option>';
+
+  for (let i = 0; i < arreglo.length; i++) {
+    elementos +='<option value="' + arreglo[i] + '">' + arreglo[i] + "</option>";
+
+      
+    }
+    dato.innerHTML=elementos;
+  
+}
+mostrarArreglo(clasesNombre,selectClases);
+
+
 
 //aplico la funcion de capitalizar la letra al nombre ingresado
-let nombre1 = capitalizarPrimeraLetra(nombreSocio);
+// let nombre1 = capitalizarPrimeraLetra(nombreSocio);
 
-//aplico la funcion de capitalizar la letra al apellido ingresado
-let apellido1 = capitalizarPrimeraLetra(apellidoSocio);
+// //aplico la funcion de capitalizar la letra al apellido ingresado
+// let apellido1 = capitalizarPrimeraLetra(apellidoSocio);
+
+// // Solicitar al usuario la cantidad de clases que quiere realizar
+// let cantidad = Number(prompt("Ingrese cantidad de clases a tomar por semana"));
+
+let formulario = document.getElementById("formulario");
+formulario.addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  let nombreSocio= document.getElementById("nombre").value;
+  let apellidoSocio = document.getElementById("apellido").value;
+  let actividad = document.getElementById("actividad");
+  
+  if (actividad.value === "pilates") {
+    let contenedor = document.getElementById("div-table");
+
+    let item = document.createElement("div");
+    item.innerHTML = `
+    <table class="table table-hover mx-5">
+      <thead>
+        <tr>
+          <th>Profesor</th>
+          <th>Alumno</th>
+          <th>Precio</th>
+          <th>formu</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>                
+          <td></td>                  
+          <td>${nombreSocio + apellidoSocio}</td>  
+          <td></td>
+          <td></td>
+        </tr>                 
+      </tbody> 
+    </table>              
+    `;
+    item.className = "";
+    contenedor.append(item);
+  }
+
+  
 
 
-// Solicitar al usuario la cantidad de clases que quiere realizar
-let cantidad = Number(prompt("Ingrese cantidad de clases a tomar por semana"));
 
+
+
+
+
+  return alumno= nombreSocio + " "  + apellidoSocio + " " + actividad;
+});
 // genero los alumnos que tendrá el gimnasio
-const alumnos = [];
-alumnos.push(new Socio(nombreSocio, apellidoSocio));
-//filtro por nombre y apellido al socio
-let nombreAlumno = alumnos.map((nombre) => nombre._nombre);
-let apellidoAlumno = alumnos.map((apellido) => apellido._apellido);
+// const alumnos = [];
+// alumnos.push(new Socio(nombreSocio, apellidoSocio));
+// //filtro por nombre y apellido al socio
+// let nombreAlumno = alumnos.map((nombre) => nombre._nombre);
+// let apellidoAlumno = alumnos.map((apellido) => apellido._apellido);
 
 // Metodo con switch para calcular el precio que debería abonar
-function calcularPrecio(clase, cantidad) {
-  switch (clase) {
-    case "pilates":
-      let precioFinalPilate = cuotasClases[0] * cantidad;
-      return precioFinalPilate;
+// function calcularPrecio(clase, cantidad) {
+//   switch (clase) {
+//     case "pilates":
+//       let precioFinalPilate = cuotasClases[0] * cantidad;
+//       return precioFinalPilate;
 
-    case "yoga":
-      let precioFinalYoga = cuotasClases[1] * cantidad;
-      return precioFinalYoga;
+//     case "yoga":
+//       let precioFinalYoga = cuotasClases[1] * cantidad;
+//       return precioFinalYoga;
 
-    case "danzas":
-      let precioFinalDanzas = cuotasClases[2] * cantidad;
-      return precioFinalDanzas;
+//     case "danzas":
+//       let precioFinalDanzas = cuotasClases[2] * cantidad;
+//       return precioFinalDanzas;
 
-    default:
-      alert("La clase no se da en el gimnasio");
-      break;
-  }
-}
+//     default:
+//       alert("La clase no se da en el gimnasio");
+//       break;
+//   }
+// }
 
-let precioFinal = calcularPrecio(clase, cantidad);
+// let precioFinal = calcularPrecio(clase, cantidad);
 
-//Condicional de acuerdo a lo elegido e imprimir en pantalla el resultado
-if (clase === "pilates") {
-  alert(
-    `la profesora es ${nombresProfesores[0]} ${apellidosProfesores[0]} , el alumno es ${nombre1} ${apellido1} y el precio de la clase es: $${precioFinal} 
-    `
-  );
-} else if (clase === "yoga") {
-  alert(
-    `la profesora es ${nombresProfesores[1]} ${apellidosProfesores[1]} , el alumno es ${nombre1} ${apellido1} y el precio de la clase es: $${precioFinal}`
-  );
-} else if (clase === "danzas") {
-  alert(
-    `la profesora es ${nombresProfesores[2]} ${apellidosProfesores[2]}, el alumno es ${nombre1} ${apellido1} y el precio de la clase es: $${precioFinal}`
-  );
-} else {
-  alert("La clase no se brinda en el gimnasio");
-}
+// //Condicional de acuerdo a lo elegido e imprimir en pantalla el resultado
 
+  /* alert(
+//     `la profesora es ${nombresProfesores[0]} ${apellidosProfesores[0]} , el alumno es ${nombre1} ${apellido1} y el precio de la clase es: $${precioFinal} 
+//     `
+//   ); */
+// } else if (clase === "yoga") {
+//   alert(
+//     `la profesora es ${nombresProfesores[1]} ${apellidosProfesores[1]} , el alumno es ${nombre1} ${apellido1} y el precio de la clase es: $${precioFinal}`
+//   );
+// } else if (clase === "danzas") {
+//   alert(
+//     `la profesora es ${nombresProfesores[2]} ${apellidosProfesores[2]}, el alumno es ${nombre1} ${apellido1} y el precio de la clase es: $${precioFinal}`
+//   );
+// } else {
+//   alert("La clase no se brinda en el gimnasio");
+// }
+
+// let mostrarValores = () => {
+  
+// };
+
+// let formulario = document.getElementById("formulario");
+// formulario.addEventListener("submit", (e) => {
+//   e.preventDefault();
+
+//   let inputs = e.target.children;
+//   console.log(inputs[0].value);
+//   console.log(inputs[1].value);
+// });
 
 
 // let formulario = document.getElementById("formulario");

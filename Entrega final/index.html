@@ -1,40 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!--CSS Files -->
-    <link href="estilos/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="estilos/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <link href="estilos/estilos.css" reel="stylesheet"/>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!--fontawesome Files -->
-    <link
-      href="estilos/fontawesome/css/fontawesome.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="estilos/fontawesome/css/all.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link href="estilos/img/Balans.jpg" rel="icon" />
-    <title>Balanse</title>
-  </head>
-  <body>
-    <div class="container py-3">
-      <div class="row py-5">
-        <div class="card-body shadow">
-          <div class="col-12 py-3 text-center">
-            <h1 class="">
-              <span style="color: rgb(192, 53, 157); font-size: 35px">B</span>a<span style="color: rgb(192, 53, 157); font-size: 35px">L</span>an<span style="color: rgb(192, 53, 157); font-size: 35px">S</span>
-            </h1>
+  <!--CSS Files -->
+  <link href="estilos/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="estilos/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="estilos/estilos.css" reel="stylesheet" />
+
+  <!--fontawesome Files -->
+  <link href="estilos/fontawesome/css/fontawesome.css" rel="stylesheet" type="text/css" />
+  <link href="estilos/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" />
+  <link href="estilos/img/Balans.jpg" rel="icon" />
+  <title>Balanse</title>
+</head>
+
+<body>
+  <div class="container py-3">
+    <div class="row">
+      <div class="col-12">
+        <form id="formulario" action="">
+          <div class="col-6">
+            <label for="nombre" class="mx-5">Nombre:</label>
+            <input type="text" class="form-control shadow mx-5 mb-3" name="nombre" id="nombre" />
           </div>
-          <div class="col-12">
-            <table class="table">
+          <div class="col-6">
+            <label for="apellido" class="mx-5">Apellido:</label>
+            <input type="text" class="form-control shadow mx-5 mb-3" name="apellido" id="apellido" />
+          </div>
+          <div class="col-6">
+            <label class="mx-5 form-label" for="lstGenero">Clases:</label>
+            <select class="form-select shadow mx-5 mb-3" name="actividad" id="actividad"></select>
+          </div>
+          <div class="col-6">
+            <input type="submit" class="btn btn-primary mx-5 mb-3" name="Actividad" id="Actividad" value="Enviar" />
+          </div>
+        </form>
+      </div>
+      <div id="valores"></div>
+    </div>
+  </div>
+  <div class="row py-5">
+    <div class="card-body shadow">
+      <div class="col-12 py-3 text-center">
+        <h1 class="">
+          <span style="color: rgb(192, 53, 157); font-size: 35px">B</span>a<span
+            style="color: rgb(192, 53, 157); font-size: 35px">L</span>an<span
+            style="color: rgb(192, 53, 157); font-size: 35px">S</span>
+        </h1>
+      </div>
+      <div id="div-table" class="col-10 mx-5">
+        <!-- <table class="table">
               <thead>
                 <tr>
                   <th>Clase</th>
@@ -43,20 +62,17 @@
                   <th class="text-center"><i class="fas fa-search"></i></th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+              <tbody id="contenedor">
+                
               </tbody>
-            </table>
-          </div>
-        </div>
+            </table> -->
       </div>
     </div>
+  </div>
 
-    <script src="js/main.js"></script>
-  </body>
+  <!-- <script src="js/persona.js"></script>
+    <script src="js/entrenador.js"></script> -->
+  <script src="js/main.js"></script>
+</body>
+
 </html>
