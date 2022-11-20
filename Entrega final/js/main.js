@@ -166,6 +166,10 @@ class Actividad {
     }
     return `Actividad: ${this.idActividad} \nAlumnos: ${alumnosActividad}`;
   }
+  
+
+  
+
 }
 
 //Declaro una función para capitalizar cualquier texto, poner la 1er letra mayuscula y el resto minúscula
@@ -179,104 +183,101 @@ entrenadores.push(new Profesor("Gabriela", "Fernandez", 500));
 entrenadores.push(new Profesor("Luciana", "Ghio", 600));
 entrenadores.push(new Profesor("Alma", "Perez", 600));
 
+
+
 // genero las actividades que tendrá el gimnasio
 const clases = [];
 clases.push(new Actividad("pilates", 1000));
 clases.push(new Actividad("yoga", 950));
 clases.push(new Actividad("danzas", 1100));
 
-// localStorage.setItem("clases", JSON.stringify(clases));
+
 // clases[0].agregarProfesor(entrenadores[0]);
 // clases[1].agregarProfesor(entrenadores[1]);
-// clases[2].agregarProfesor(entrenadores[1]);
-console.log(clases);
+clases[2].agregarProfesor(entrenadores[1]);
+
 // filtro los nombres y apellidos de los profesores para mostrar en pantalla luego
 let nombresProfesores = entrenadores.map((nombre) => nombre._nombre);
-let apellidosProfesores = entrenadores.map((apellido) => apellido._apellido);
+let apellidoProfesores = entrenadores.map((apellido) => apellido._apellido);
+let profesorNombre = `${nombresProfesores} ${apellidoProfesores}`;
+
 // filtro las cuotas de las clases  para mostrar en pantalla luego
 let cuotasClases = clases.map((cuota) => cuota._cuota);
-let clasesNombre = clases.map((nombre)=>nombre._nombre);
+let clasesStorage = localStorage.setItem(
+  "clases",
+  JSON.stringify(clases)
+);
 
 
 
-// //Solicitar al usuario que elija clase
-// let clase = prompt(
-//   "Ingrese actividad que desea consultar o realizar: PILATES, YOGA o DANZAS"
-// ).toLocaleLowerCase();
+let nombreClases = clases.map((nombre) => nombre._nombre);
+let pilate = clases.filter((item)=>item._nombre === "pilates");
+let yoga = clases.filter((item) => item._nombre === "yoga");
+let danza = clases.filter((item)=>item._nombre === "danzas");
 
 let selectClases = document.getElementById("actividad");
 
-function mostrarArreglo(arreglo, dato) {
+const mostrarClases = (arreglo, dato) => {
   let elementos = '<option selected disabled> <--Seleccionar--> </option>';
 
   for (let i = 0; i < arreglo.length; i++) {
-    elementos +='<option value="' + arreglo[i] + '">' + arreglo[i] + "</option>";
-
-      
+    elementos +='<option value="' + arreglo[i] + '">' + arreglo[i] + "</option>";      
     }
-    dato.innerHTML=elementos;
-  
-}
-mostrarArreglo(clasesNombre,selectClases);
+    dato.innerHTML=elementos;  
+  }
 
-
-
-//aplico la funcion de capitalizar la letra al nombre ingresado
-// let nombre1 = capitalizarPrimeraLetra(nombreSocio);
-
-// //aplico la funcion de capitalizar la letra al apellido ingresado
-// let apellido1 = capitalizarPrimeraLetra(apellidoSocio);
-
-// // Solicitar al usuario la cantidad de clases que quiere realizar
-// let cantidad = Number(prompt("Ingrese cantidad de clases a tomar por semana"));
+mostrarClases(nombreClases, selectClases);
 
 let formulario = document.getElementById("formulario");
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
-  
-  let nombreSocio= document.getElementById("nombre").value;
+
+  //Capturo el nombre del socio
+  let nombreSocio = document.getElementById("nombre").value;
+  //aplico la funcion de capitalizar la letra al nombre ingresado
+  let nombre1 = capitalizarPrimeraLetra(nombreSocio);
+
+  //Capturo el apellido del socio
   let apellidoSocio = document.getElementById("apellido").value;
-  let actividad = document.getElementById("actividad");
+  //aplico la funcion de capitalizar la letra al apellido ingresado
+  let apellido1 = capitalizarPrimeraLetra(apellidoSocio);
+  let socio = `${nombre1} ${apellido1}`;
+  let socioFinal = localStorage.setItem("socio", JSON.stringify(socio));
+
+  //Capturo la actividad elegida
+  let actividad = document.getElementById("actividad").value;
+  let actividadFinal = localStorage.setItem("actividad",JSON.stringify(actividad));
   
-  if (actividad.value === "pilates") {
-    let contenedor = document.getElementById("div-table");
-
-    let item = document.createElement("div");
-    item.innerHTML = `
-    <table class="table table-hover mx-5">
-      <thead>
-        <tr>
-          <th>Profesor</th>
-          <th>Alumno</th>
-          <th>Precio</th>
-          <th>formu</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>                
-          <td></td>                  
-          <td>${nombreSocio + apellidoSocio}</td>  
-          <td></td>
-          <td></td>
-        </tr>                 
-      </tbody> 
-    </table>              
-    `;
-    item.className = "";
-    contenedor.append(item);
-  }
-
-  
-
-
-
-
-
-
-
-  return alumno= nombreSocio + " "  + apellidoSocio + " " + actividad;
 });
+let actividadStorage = JSON.parse(localStorage.getItem("actividad"));
+
+
+let socioStorage= JSON.parse(localStorage.getItem("socio"));
+let cuotasStorage= JSON.parse(localStorage.getItem("cuota"));
+
+
+if (actividadStorage === "danzas") {
+  let contenedor = document.getElementById("div-table");
+
+  let item = document.createElement("tbody");
+  item.innerHTML = `
+    
+        <tr>                
+          <td>${clases[2]._entrenadores[0]}</td>                  
+          <td> ${socioStorage}</td>  
+          <td>${clases[2]._cuota}</td>
+          <td>${clases[2]._nombre}</td>
+        </tr>                 
+                
+    `;
+  item.className = "";
+  contenedor.append(item);
+}
+
+// imprimirClase(socioStorage,actividadStorage);
+
+
+// return (alumno = nombreSocio + " " + apellidoSocio + " " + actividad);
 // genero los alumnos que tendrá el gimnasio
 // const alumnos = [];
 // alumnos.push(new Socio(nombreSocio, apellidoSocio));
