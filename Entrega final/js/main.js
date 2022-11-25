@@ -58,9 +58,8 @@ class Profesor extends Persona {
 
   // metodo toString para retornar datos de la clase.
   toString() {
-    return `${super.toString()}, ID Profesor: ${this._idProfesor}, Sueldo: $${
-      this._sueldo
-    }`;
+    return `${super.toString()}, ID Profesor: ${this._idProfesor}, Sueldo: $${this._sueldo
+      }`;
   }
 }
 
@@ -76,6 +75,7 @@ class Socio extends Persona {
     super(nombre, apellido);
     this._idSocio = ++Socio.contadorSocio;
     this._cuota = cuota;
+    // this._clase = acti;
   }
   get idSocio() {
     return this.idSocio;
@@ -89,9 +89,8 @@ class Socio extends Persona {
 
   // metodo toString para retornar datos de la clase.
   toString() {
-    return `${super.toString()}, Número de socio:${
-      this._idSocio
-    }, Cuota social:$${this._cuota}`;
+    return `${super.toString()}, Número de socio:${this._idSocio
+      }, Cuota social:$${this._cuota}`;
   }
 }
 
@@ -166,10 +165,6 @@ class Actividad {
     }
     return `Actividad: ${this.idActividad} \nAlumnos: ${alumnosActividad}`;
   }
-  
-
-  
-
 }
 
 //Declaro una función para capitalizar cualquier texto, poner la 1er letra mayuscula y el resto minúscula
@@ -185,16 +180,25 @@ entrenadores.push(new Profesor("Alma", "Perez", 600));
 
 
 
+
+
+
+
 // genero las actividades que tendrá el gimnasio
 const clases = [];
-clases.push(new Actividad("pilates", 1000));
-clases.push(new Actividad("yoga", 950));
-clases.push(new Actividad("danzas", 1100));
+clases.push(new Actividad("Pilates", 1000));
+clases.push(new Actividad("Yoga", 950));
+clases.push(new Actividad("Danzas", 1100));
 
-
-// clases[0].agregarProfesor(entrenadores[0]);
-// clases[1].agregarProfesor(entrenadores[1]);
+//Agrego los profesores a cada clase
+clases[0].agregarProfesor(entrenadores[0]);
+clases[1].agregarProfesor(entrenadores[1]);
 clases[2].agregarProfesor(entrenadores[1]);
+
+
+
+
+
 
 // filtro los nombres y apellidos de los profesores para mostrar en pantalla luego
 let nombresProfesores = entrenadores.map((nombre) => nombre._nombre);
@@ -203,153 +207,123 @@ let profesorNombre = `${nombresProfesores} ${apellidoProfesores}`;
 
 // filtro las cuotas de las clases  para mostrar en pantalla luego
 let cuotasClases = clases.map((cuota) => cuota._cuota);
-let clasesStorage = localStorage.setItem(
-  "clases",
-  JSON.stringify(clases)
-);
-
-
 
 let nombreClases = clases.map((nombre) => nombre._nombre);
-let pilate = clases.filter((item)=>item._nombre === "pilates");
+let pilate = clases.filter((item) => item._nombre === "pilates");
 let yoga = clases.filter((item) => item._nombre === "yoga");
-let danza = clases.filter((item)=>item._nombre === "danzas");
+let danza = clases.filter((item) => item._nombre === "danzas");
 
 let selectClases = document.getElementById("actividad");
 
+
+
 const mostrarClases = (arreglo, dato) => {
-  let elementos = '<option selected disabled> <--Seleccionar--> </option>';
+  let elementos = "<option selected disabled> -->Seleccionar<-- </option>";
 
   for (let i = 0; i < arreglo.length; i++) {
-    elementos +='<option value="' + arreglo[i] + '">' + arreglo[i] + "</option>";      
-    }
-    dato.innerHTML=elementos;  
+    elementos +=
+      '<option value="' + arreglo[i] + '">' + arreglo[i] + "</option>";
   }
+  dato.innerHTML = elementos;
+};
 
 mostrarClases(nombreClases, selectClases);
 
-let formulario = document.getElementById("formulario");
-formulario.addEventListener("submit", (e) => {
-  e.preventDefault();
 
-  //Capturo el nombre del socio
-  let nombreSocio = document.getElementById("nombre").value;
-  //aplico la funcion de capitalizar la letra al nombre ingresado
-  let nombre1 = capitalizarPrimeraLetra(nombreSocio);
 
-  //Capturo el apellido del socio
-  let apellidoSocio = document.getElementById("apellido").value;
-  //aplico la funcion de capitalizar la letra al apellido ingresado
-  let apellido1 = capitalizarPrimeraLetra(apellidoSocio);
-  let socio = `${nombre1} ${apellido1}`;
-  let socioFinal = localStorage.setItem("socio", JSON.stringify(socio));
+// let actividadStorage = JSON.parse(localStorage.getItem("actividad"));
+// let socioStorage = JSON.parse(localStorage.getItem("socio"));
+// let cuotasStorage = JSON.parse(localStorage.getItem("cuota"));
 
-  //Capturo la actividad elegida
-  let actividad = document.getElementById("actividad").value;
-  let actividadFinal = localStorage.setItem("actividad",JSON.stringify(actividad));
+const convertirObj = (capturarForm) => {
+
+  let nombre = capturarForm.get("nombre");
+  let nombreCapi = capitalizarPrimeraLetra(nombre);
+  let apellido = capturarForm.get("apellido");
+  let apellidoCapi = capitalizarPrimeraLetra(apellido);
+  let clase = capturarForm.get("actividad");
+
+  return { "nombre": nombreCapi, "apellido": apellidoCapi, "clase": clase };
+};
+
+//Creo una funcion para guardar los datos ingresados en el localStorage
+const datosStorage = (obj) => {
+  let datosArray = JSON.parse(localStorage.getItem("datos")) || [];
+  //Ingreso los datos ingresador en el array para sumarlos y no se sobreescriba
+  datosArray.push(obj);
+
+
+  //Guardo el array en el localStorage
+  return datosFinales = localStorage.setItem("datos", JSON.stringify(datosArray));
+};
+
+
+
+
+
+
+let boton = document.getElementById("añadir");
+boton.addEventListener("click", ()=> {
+  Swal.fire({
+  icon: 'success',
+  title: 'Guardado...',
+  text: 'Something went wrong!',
+  footer: '<a href="">Why do I have this issue?</a>'
+})
+})
+
+
+let form = document.getElementById("formulario");
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  let capturarForm = new FormData(form);
+  let pasarObj = convertirObj(capturarForm);
+  datosStorage(pasarObj); 
   
+  let contenedorTable = document.getElementById("alumnos");
+  
+  let nombreAlumno = formulario.querySelector("#nombre").value;
+  let apellidoAlumno = formulario.querySelector("#apellido").value;
+  
+  const alumnos = [];
+  alumnos.push(new Socio(nombreAlumno, apellidoAlumno));
+  clases[0].agregarAlumno(alumnos[0]);
+  let clasesStorage = localStorage.setItem("clases", JSON.stringify(clases));
+
+  clasesStorage.forEach((e) => {
+    let item = document.createElement("alumnos");
+    item.innerHTML = `
+  
+  <h1 class="col-12 m-5">Alumnos</h1>  
+  <p> Nombre: </p>
+  <p> Apellido ${pasarObj.apellido} </p>
+  <p> Clase: ${pasarObj.clase} </p>
+  
+  
+  `;
+
+    contenedorTable.append(item);
+  });
 });
-let actividadStorage = JSON.parse(localStorage.getItem("actividad"));
 
 
-let socioStorage= JSON.parse(localStorage.getItem("socio"));
-let cuotasStorage= JSON.parse(localStorage.getItem("cuota"));
+let clasesStorage = localStorage.setItem("clases", JSON.stringify(clases));
 
 
-if (actividadStorage === "danzas") {
-  let contenedor = document.getElementById("div-table");
+document.addEventListener("DOMContentLoaded", () => {
+  let datosGuardadosArray = JSON.parse(localStorage.getItem("clases")) || [];
+  datosGuardadosArray.forEach((event) => {
+    let contenedorTable = document.getElementById("div");
+    let item = document.createElement("ul");
+    item.innerHTML = `
 
-  let item = document.createElement("tbody");
-  item.innerHTML = `
-    
-        <tr>                
-          <td>${clases[2]._entrenadores[0]}</td>                  
-          <td> ${socioStorage}</td>  
-          <td>${clases[2]._cuota}</td>
-          <td>${clases[2]._nombre}</td>
-        </tr>                 
-                
+        <h3>Clase: ${event._nombre}</h3>
+        <li class:"mx-5">${event._alumnos}</li>
+           
     `;
-  item.className = "";
-  contenedor.append(item);
-}
 
-// imprimirClase(socioStorage,actividadStorage);
+    contenedorTable.append(item);
+  });
+});
 
-
-// return (alumno = nombreSocio + " " + apellidoSocio + " " + actividad);
-// genero los alumnos que tendrá el gimnasio
-// const alumnos = [];
-// alumnos.push(new Socio(nombreSocio, apellidoSocio));
-// //filtro por nombre y apellido al socio
-// let nombreAlumno = alumnos.map((nombre) => nombre._nombre);
-// let apellidoAlumno = alumnos.map((apellido) => apellido._apellido);
-
-// Metodo con switch para calcular el precio que debería abonar
-// function calcularPrecio(clase, cantidad) {
-//   switch (clase) {
-//     case "pilates":
-//       let precioFinalPilate = cuotasClases[0] * cantidad;
-//       return precioFinalPilate;
-
-//     case "yoga":
-//       let precioFinalYoga = cuotasClases[1] * cantidad;
-//       return precioFinalYoga;
-
-//     case "danzas":
-//       let precioFinalDanzas = cuotasClases[2] * cantidad;
-//       return precioFinalDanzas;
-
-//     default:
-//       alert("La clase no se da en el gimnasio");
-//       break;
-//   }
-// }
-
-// let precioFinal = calcularPrecio(clase, cantidad);
-
-// //Condicional de acuerdo a lo elegido e imprimir en pantalla el resultado
-
-  /* alert(
-//     `la profesora es ${nombresProfesores[0]} ${apellidosProfesores[0]} , el alumno es ${nombre1} ${apellido1} y el precio de la clase es: $${precioFinal} 
-//     `
-//   ); */
-// } else if (clase === "yoga") {
-//   alert(
-//     `la profesora es ${nombresProfesores[1]} ${apellidosProfesores[1]} , el alumno es ${nombre1} ${apellido1} y el precio de la clase es: $${precioFinal}`
-//   );
-// } else if (clase === "danzas") {
-//   alert(
-//     `la profesora es ${nombresProfesores[2]} ${apellidosProfesores[2]}, el alumno es ${nombre1} ${apellido1} y el precio de la clase es: $${precioFinal}`
-//   );
-// } else {
-//   alert("La clase no se brinda en el gimnasio");
-// }
-
-// let mostrarValores = () => {
-  
-// };
-
-// let formulario = document.getElementById("formulario");
-// formulario.addEventListener("submit", (e) => {
-//   e.preventDefault();
-
-//   let inputs = e.target.children;
-//   console.log(inputs[0].value);
-//   console.log(inputs[1].value);
-// });
-
-
-// let formulario = document.getElementById("formulario");
-// formulario.addEventListener("submit", (e) => {
-//   e.preventDefault();
-
-//   let inputs = e.target.children;
-//   console.log(inputs[0].value);
-//   console.log(inputs[1].value);
-// });
-// <form id="formulario">
-//   <input type="text" />
-//   <input type="number" />
-//   <input type="submit" value="Enviar" />
-// </form>;

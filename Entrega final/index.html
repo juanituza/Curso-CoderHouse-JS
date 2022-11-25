@@ -25,7 +25,7 @@
         <form id="formulario" action="">
           <div class="col-6">
             <label for="nombre" class="mx-5">Nombre:</label>
-            <input type="text" class="form-control shadow mx-5 mb-3" name="nombre" id="nombre" />
+            <input type="text" class="form-control shadow mx-5 mb-3" name="nombre" id="nombre" value="" />
           </div>
           <div class="col-6">
             <label for="apellido" class="mx-5">Apellido:</label>
@@ -36,7 +36,7 @@
             <select class="form-select shadow mx-5 mb-3" name="actividad" id="actividad"></select>
           </div>
           <div class="col-6">
-            <input type="submit" class="btn btn-primary mx-5 mb-3" name="Actividad" id="Actividad" value="Enviar" />
+            <input type="submit" class="btn btn-primary mx-5 mb-3" name="añadir" id="añadir" value="Añadir" />
           </div>
         </form>
       </div>
@@ -52,23 +52,24 @@
             style="color: rgb(192, 53, 157); font-size: 35px">S</span>
         </h1>
       </div>
-      <div  class="col-10 mx-5">
-        <table class="table table-hover mx-5" id="div-table">
-          <thead>
-            <tr>
-              <th>Profesor</th>
-              <th>Alumno</th>
-              <th>Precio</th>
-              <th>Actividad</th>
-            </tr>
-          </thead>
+      <div class="col-10 mx-5" id="alumnos">
+
+
 
       </div>
     </div>
   </div>
+  <div class="col-10 mx-5" id="div">
+
+
+
+  </div>
+  
 
   <!-- <script src="js/persona.js"></script>
     <script src="js/entrenador.js"></script> -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script src="js/main.js"></script>
 </body>
 
