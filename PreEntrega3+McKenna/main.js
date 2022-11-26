@@ -58,8 +58,9 @@ class Profesor extends Persona {
 
   // metodo toString para retornar datos de la clase.
   toString() {
-    return `${super.toString()}, ID Profesor: ${this._idProfesor}, Sueldo: $${this._sueldo
-      }`;
+    return `${super.toString()}, ID Profesor: ${this._idProfesor}, Sueldo: $${
+      this._sueldo
+    }`;
   }
 }
 
@@ -74,23 +75,16 @@ class Socio extends Persona {
   constructor(nombre, apellido, cuota) {
     super(nombre, apellido);
     this._idSocio = ++Socio.contadorSocio;
-    this._cuota = cuota;
-    // this._clase = acti;
   }
   get idSocio() {
     return this.idSocio;
   }
-  get cuota() {
-    return this._cuota;
-  }
-  set cuota(cuota) {
-    this._cuota = cuota;
-  }
 
   // metodo toString para retornar datos de la clase.
   toString() {
-    return `${super.toString()}, Número de socio:${this._idSocio
-      }, Cuota social:$${this._cuota}`;
+    return `${super.toString()}, Número de socio:${
+      this._idSocio
+    }, Cuota social:$${this._cuota}`;
   }
 }
 
@@ -114,8 +108,6 @@ class Actividad {
     this._idActividad = ++Actividad.contadorActividad;
     this._nombre = nombre;
     this._cuota = cuota;
-    this._entrenadores = [];
-    this._alumnos = [];
   }
 
   //get y set de la clase
@@ -134,37 +126,6 @@ class Actividad {
   set cuota(cuota) {
     this._cuota = cuota;
   }
-
-  // metodo para agregar un alumno a la actividad
-  agregarAlumno(alumno) {
-    if (this._alumnos.length < Actividad.MAX_ALUMNOS) {
-      this._alumnos.push(alumno);
-    } else {
-      console.log("No se pueden agregar mas alumnos");
-    }
-  }
-  // metodo para agregar un profesor a la actividad
-  agregarProfesor(profesor) {
-    if (this._entrenadores.length < Actividad.MAX_PROFESORES) {
-      this._entrenadores.push(profesor);
-    } else {
-      console.log("La actividad ya tiene un profesor");
-    }
-  }
-
-  // metodo para mostrar alumnos y profesor de la Actividad
-  mostrarActividad() {
-    let alumnosActividad = " ";
-    for (let alumno of this._alumnos) {
-      alumnosActividad += "\n{" + alumno.toString() + " }";
-    }
-
-    let profesoresActividad = " ";
-    for (let profesor of this._entrenadores) {
-      profesoresActividad += "\n{" + profesor.toString() + " }";
-    }
-    return `Actividad: ${this.idActividad} \nAlumnos: ${alumnosActividad}`;
-  }
 }
 
 //Declaro una función para capitalizar cualquier texto, poner la 1er letra mayuscula y el resto minúscula
@@ -172,41 +133,15 @@ function capitalizarPrimeraLetra(str) {
   return ` ${str.charAt(0).toUpperCase()}${str.slice(1).toLocaleLowerCase()}`;
 }
 
-//genero los array de entranadores que tendra el gimnasio
-const entrenadores = [];
-entrenadores.push(new Profesor("Gabriela", "Fernandez", 500));
-entrenadores.push(new Profesor("Luciana", "Ghio", 600));
-entrenadores.push(new Profesor("Alma", "Perez", 600));
-
 // genero las actividades que tendrá el gimnasio
 const clases = [];
 clases.push(new Actividad("Pilates", 1000));
 clases.push(new Actividad("Yoga", 950));
 clases.push(new Actividad("Danzas", 1100));
 
-//Agrego los profesores a cada clase
-clases[0].agregarProfesor(entrenadores[0]);
-clases[1].agregarProfesor(entrenadores[1]);
-clases[2].agregarProfesor(entrenadores[1]);
-
-
-
-
-
-
-// filtro los nombres y apellidos de los profesores para mostrar en pantalla luego
-let nombresProfesores = entrenadores.map((nombre) => nombre._nombre);
-let apellidoProfesores = entrenadores.map((apellido) => apellido._apellido);
-let profesorNombre = `${nombresProfesores} ${apellidoProfesores}`;
-
-// filtro las cuotas de las clases  para mostrar en pantalla luego
-let cuotasClases = clases.map((cuota) => cuota._cuota);
-
+//Filtro por nombres de clases para usar mas adelante
 let nombreClases = clases.map((nombre) => nombre._nombre);
-let pilate = clases.filter((item) => item._nombre === "pilates");
-let yoga = clases.filter((item) => item._nombre === "yoga");
-let danza = clases.filter((item) => item._nombre === "danzas");
-
+// Genero una funcion para mostrar las clases en el select
 let selectClases = document.getElementById("actividad");
 const mostrarClases = (arreglo, dato) => {
   let elementos = "<option selected disabled> -->Seleccionar<-- </option>";
@@ -217,110 +152,80 @@ const mostrarClases = (arreglo, dato) => {
   }
   dato.innerHTML = elementos;
 };
-
+//Utilizo la funcion con las clases creadas
 mostrarClases(nombreClases, selectClases);
 
-
-
-// let actividadStorage = JSON.parse(localStorage.getItem("actividad"));
-// let socioStorage = JSON.parse(localStorage.getItem("socio"));
-// let cuotasStorage = JSON.parse(localStorage.getItem("cuota"));
-
+//Funcion para convertir a un objeto lo capturado en el Form
 const convertirObj = (capturarForm) => {
-
   let nombre = capturarForm.get("nombre");
   let nombreCapi = capitalizarPrimeraLetra(nombre);
   let apellido = capturarForm.get("apellido");
   let apellidoCapi = capitalizarPrimeraLetra(apellido);
   let clase = capturarForm.get("actividad");
 
-  return { "nombre": nombreCapi, "apellido": apellidoCapi, "clase": clase };
+  return { nombre: nombreCapi, apellido: apellidoCapi, clase: clase };
 };
 
 //Creo una funcion para guardar los datos ingresados en el localStorage
 const datosStorage = (obj) => {
   let datosArray = JSON.parse(localStorage.getItem("datos")) || [];
-  //Ingreso los datos ingresador en el array para sumarlos y no se sobreescriba
+  //Ingreso los datos ingresados en el array para sumarlos y no se sobreescriba
   datosArray.push(obj);
-
-
   //Guardo el array en el localStorage
-  return datosFinales = localStorage.setItem("datos", JSON.stringify(datosArray));
+  return (datosFinales = localStorage.setItem(
+    "datos",
+    JSON.stringify(datosArray)
+  ));
 };
-
-
-
-
-
-
+//Alert para el botón añadir
 let boton = document.getElementById("añadir");
-boton.addEventListener("click", ()=> {
+boton.addEventListener("click", () => {
   Swal.fire({
-  icon: 'success',
-  title: 'Guardado...',
-  text: 'Cliente guardado exitosamente!',
+    icon: "success",
+    title: "Guardado...",
+    text: "Socio guardado exitosamente!",
+  });
+});
 
-})
-})
 
-
+// obtengo y utilizo DOM para mostrar los datos ingresador
 let form = document.getElementById("formulario");
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   let capturarForm = new FormData(form);
   let pasarObj = convertirObj(capturarForm);
-  datosStorage(pasarObj); 
+  datosStorage(pasarObj);
 
+  let contenedorTable = document.getElementById("alumnos");
 
-  
-  // let contenedorTable = document.getElementById("alumnos");
-  
-  // let nombreAlumno = formulario.querySelector("#nombre").value;
-
-  // let apellidoAlumno = formulario.querySelector("#apellido").value;
-  let datosArray = JSON.parse(localStorage.getItem("datos"));
-
-  
-  const alumnos = [];  
-  alumnos.push(new Socio(datosArray[0].nombre, datosArray[0].apellido));
-  clases[0].agregarAlumno(alumnos[0]);
-  let clasesStorage = localStorage.setItem("clases", JSON.stringify(clases));
-
-
-  
-    let item = document.createElement("alumnos");
-    item.innerHTML = `
-  
-  <h1 class="col-12 m-5">Alumnos</h1>  
-  <p> Nombre: </p>
-  <p> Apellido ${pasarObj.apellido} </p>
-  <p> Clase: ${pasarObj.clase} </p>
-  
-  
+  let item = document.createElement("alumnos");
+  item.innerHTML = `
+        <li>Nombre: ${pasarObj.nombre}</li>
+        <li>Nombre: ${pasarObj.apellido}</li>        
+        <li class:"mx-5">Clase: ${pasarObj.clase}</li>  
   `;
 
-    contenedorTable.append(item);
- 
+  contenedorTable.append(item);
 });
 
-
-//let clasesStorage = localStorage.setItem("clases", JSON.stringify(clases));
-
-
+// Guardo los datos para mostrar de forma permanente los datos en la pantalla, por mas que se recargue
 document.addEventListener("DOMContentLoaded", () => {
-  let datosGuardadosArray = JSON.parse(localStorage.getItem("clases")) || [];
+  let datosGuardadosArray = JSON.parse(localStorage.getItem("datos")) || [];
   datosGuardadosArray.forEach((event) => {
-    let contenedorTable = document.getElementById("div");
+    let contenedorTable = document.getElementById("alumnos");
     let item = document.createElement("ul");
-    item.innerHTML = `
 
-        <h3>Clase: ${event._nombre}</h3>
-        <li class:"mx-5">${event._alumnos[0]._nombre} ${event._alumnos[0]._apellido}</li>
-           
-    `;
+    // let pilate = clases.filter((item) => item._nombre === "pilates");
+    // console.log(pilate);
+
+    item.innerHTML = `
+        <li>Nombre: ${event.nombre}</li>
+        <li>Nombre: ${event.apellido}</li>        
+        <li class:"mx-5">Clase: ${event.clase}</li>
+        
+        `;
 
     contenedorTable.append(item);
   });
 });
-
