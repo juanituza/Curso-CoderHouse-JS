@@ -108,6 +108,8 @@ class Actividad {
     this._idActividad = ++Actividad.contadorActividad;
     this._nombre = nombre;
     this._cuota = cuota;
+    this._entrenadores = [];
+    this._alumnos = [];
   }
 
   //get y set de la clase
@@ -126,6 +128,37 @@ class Actividad {
   set cuota(cuota) {
     this._cuota = cuota;
   }
+
+  // metodo para agregar un alumno a la actividad
+  agregarAlumno(alumno) {
+    if (this._alumnos.length < Actividad.MAX_ALUMNOS) {
+      this._alumnos.push(alumno);
+    } else {
+      console.log("No se pueden agregar mas alumnos");
+    }
+  }
+  // metodo para agregar un profesor a la actividad
+  agregarProfesor(profesor) {
+    if (this._entrenadores.length < Actividad.MAX_PROFESORES) {
+      this._entrenadores.push(profesor);
+    } else {
+      console.log("La actividad ya tiene un profesor");
+    }
+  }
+
+  // metodo para mostrar alumnos y profesor de la Actividad
+  mostrarActividad() {
+    let alumnosActividad = " ";
+    for (let alumno of this._alumnos) {
+      alumnosActividad += "\n{" + alumno.toString() + " }";
+    }
+
+    let profesoresActividad = " ";
+    for (let profesor of this._entrenadores) {
+      profesoresActividad += "\n{" + profesor.toString() + " }";
+    }
+    return `Actividad: ${this.idActividad} \nAlumnos: ${alumnosActividad}`;
+  }
 }
 
 //Declaro una función para capitalizar cualquier texto, poner la 1er letra mayuscula y el resto minúscula
@@ -139,16 +172,23 @@ clases.push(new Actividad("Pilates", 1000));
 clases.push(new Actividad("Yoga", 950));
 clases.push(new Actividad("Danzas", 1100));
 
+
 //Filtro por nombres de clases para usar mas adelante
 let nombreClases = clases.map((nombre) => nombre._nombre);
-// Genero una funcion para mostrar las clases en el select
+
+//obtengo el dato de bajo el id "actividad" y lo guardo en la variable para utlizarlo mas tarde
 let selectClases = document.getElementById("actividad");
+//Función para mostras las clases en pantalla
 const mostrarClases = (arreglo, dato) => {
   let elementos = "<option selected disabled> -->Seleccionar<-- </option>";
 
   for (let i = 0; i < arreglo.length; i++) {
     elementos +=
-      '<option value="' + arreglo[i] + '">' + arreglo[i] + "</option>";
+      '<option id="tarea" value="' +
+      arreglo[i] +
+      '">' +
+      arreglo[i] +
+      "</option>";
   }
   dato.innerHTML = elementos;
 };
@@ -177,18 +217,18 @@ const datosStorage = (obj) => {
     JSON.stringify(datosArray)
   ));
 };
+
 //Alert para el botón añadir
 let boton = document.getElementById("añadir");
 boton.addEventListener("click", () => {
   Swal.fire({
     icon: "success",
-    title: "Guardado...",
+    title: "Guardado!!",
     text: "Socio guardado exitosamente!",
   });
 });
 
-
-// obtengo y utilizo DOM para mostrar los datos ingresador
+// obtengo y utilizo DOM para mostrar los datos ingresados
 let form = document.getElementById("formulario");
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -198,34 +238,32 @@ form.addEventListener("submit", (event) => {
   datosStorage(pasarObj);
 
   let contenedorTable = document.getElementById("alumnos");
+  let item = document.createElement("ul");
 
-  let item = document.createElement("alumnos");
   item.innerHTML = `
-        <li>Nombre: ${pasarObj.nombre}</li>
-        <li>Nombre: ${pasarObj.apellido}</li>        
-        <li class:"mx-5">Clase: ${pasarObj.clase}</li>  
-  `;
+  <h3>Clase: ${pasarObj.clase}</h3>
+  <li>Nombre: ${pasarObj.nombre} ${pasarObj.apellido}</li>        
+        
+        `;
 
   contenedorTable.append(item);
 });
 
-// Guardo los datos para mostrar de forma permanente los datos en la pantalla, por mas que se recargue
+// Guardo los datos para mostrarlos de forma permanente en la pantalla, por mas que se recargue
 document.addEventListener("DOMContentLoaded", () => {
   let datosGuardadosArray = JSON.parse(localStorage.getItem("datos")) || [];
   datosGuardadosArray.forEach((event) => {
     let contenedorTable = document.getElementById("alumnos");
     let item = document.createElement("ul");
 
-    // let pilate = clases.filter((item) => item._nombre === "pilates");
-    // console.log(pilate);
-
     item.innerHTML = `
-        <li>Nombre: ${event.nombre}</li>
-        <li>Nombre: ${event.apellido}</li>        
-        <li class:"mx-5">Clase: ${event.clase}</li>
-        
-        `;
+    <h3>Clase: ${event.clase} </h3>
+    <li>Nombre: ${event.nombre} ${event.apellido}</li>        
+    
+    
+    `;
 
     contenedorTable.append(item);
   });
 });
+

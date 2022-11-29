@@ -327,3 +327,54 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// let form1 = JSON.parse(localStorage.getItem("datos")) || [];
+
+// alumnos = [];
+
+// for (const formu of form1) {
+//   let nombre = formu.nombre;
+//   let apellido = formu.apellido;
+//   let claseCapturada = formu.clase;
+//   alumnos.push(new Socio(nombre, apellido));
+  
+//   // console.log(alumnos);
+
+//   if (claseCapturada === "Pilates") {
+//     for (const socio of alumnos) {
+//       let pilates1 = socio;
+          
+//       clases[0].agregarAlumno(pilates1);
+//     }
+//     let pilatesFinal = clases[0];
+    
+//     localStorage.setItem("pilates", JSON.stringify(pilatesFinal));
+
+   
+    
+  
+//   // document.addEventListener("DOMContentLoaded", () => {
+//     let datosGuardadosArray = JSON.parse(localStorage.getItem("pilates"));
+        
+//       let contenedorTable = document.getElementById("alumnos");
+//       let item = document.createElement("ul");
+     
+//         item.innerHTML = `
+//         <h3>Clase: ${datosGuardadosArray._nombre}</h3>
+//         <li>Nombre: ${datosGuardadosArray._alumnos[0]._nombre} ${datosGuardadosArray._alumnos[0]._apellido}  </li>        
+//         <li>Cuota: ${datosGuardadosArray._cuota} </li>        
+        
+        
+//         `;
+
+//         contenedorTable.append(item);
+      
+    
+//   }
+// else if (claseCapturada === "Yoga") {
+//     for (const clase of alumnos) {
+//       let yoga1 = clase;
+      
+//     }
+//   }
+// }
+// Guardo los datos para mostrar de forma permanente los datos en la pantalla, por mas que se recargue
