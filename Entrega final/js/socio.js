@@ -1,10 +1,16 @@
+// ------------------------->> CLASE SOCIO <<---------------------
+
+//declaro clase socio
 class Socio extends Persona {
+  //declaro el contador para el id socio
   static contadorSocio = 0;
 
+  // funcion constructor
   constructor(nombre, apellido, cuota) {
     super(nombre, apellido);
     this._idSocio = ++Socio.contadorSocio;
     this._cuota = cuota;
+    // this._clase = acti;
   }
   get idSocio() {
     return this.idSocio;
@@ -16,13 +22,10 @@ class Socio extends Persona {
     this._cuota = cuota;
   }
 
+  // metodo toString para retornar datos de la clase.
   toString() {
-    return `${super.toString()} ${_idSocio} ${_cuota}`;
+    return `${super.toString()}, Número de socio:${
+      this._idSocio
+    }, Cuota social:$${this._cuota}`;
   }
 }
-
-const alumno = [];
-
-alumno.push(new Socio("Juan", "Mc Kenna", 800));
-alumno.push(new Socio("Pedro", "Florentin", 1200));
-console.log(alumno);
