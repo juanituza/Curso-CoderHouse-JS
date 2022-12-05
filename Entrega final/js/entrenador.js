@@ -29,3 +29,5 @@ class Profesor extends Persona {
     }`;
   }
 }
+
+

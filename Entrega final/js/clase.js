@@ -14,11 +14,10 @@ class Actividad {
   }
 
   //conmstructor de la actividad
-  constructor(nombre, cuota) {
+  constructor(nombre,cuota) {
     this._idActividad = ++Actividad.contadorActividad;
     this._nombre = nombre;
     this._cuota = cuota;
-    this._entrenadores = [];
     this._alumnos = [];
   }
 
@@ -33,11 +32,25 @@ class Actividad {
     this._nombre = nombre;
   }
   get cuota() {
-    return this._cuota;
+    return this.cuota;
   }
   set cuota(cuota) {
     this._cuota = cuota;
   }
+
+
+  // get alumnos(){
+  //   return this._alumnos;
+  // }
+  // set alumnos(alumnos) {
+  //   this._alumnos = alumnos;
+  // }
+  // get cuota() {
+  //   return this._cuota;
+  // }
+  // set cuota(cuota) {
+  //   this._cuota = cuota;
+  // }
 
   // metodo para agregar un alumno a la actividad
   agregarAlumno(alumno) {
@@ -47,14 +60,17 @@ class Actividad {
       console.log("No se pueden agregar mas alumnos");
     }
   }
-  // metodo para agregar un profesor a la actividad
-  agregarProfesor(profesor) {
-    if (this._entrenadores.length < Actividad.MAX_PROFESORES) {
-      this._entrenadores.push(profesor);
-    } else {
-      console.log("La actividad ya tiene un profesor");
-    }
+  mostrarAlumnos(){
+    console.log(this._alumnos);
   }
+  // metodo para agregar un profesor a la actividad
+  // agregarProfesor(profesor) {
+  //   if (this._entrenadores.length < Actividad.MAX_PROFESORES) {
+  //     this._entrenadores.push(profesor);
+  //   } else {
+  //     console.log("La actividad ya tiene un profesor");
+  //   }
+  // }
 
   // metodo para mostrar alumnos y profesor de la Actividad
   mostrarActividad() {
