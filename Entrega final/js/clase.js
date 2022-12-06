@@ -56,8 +56,12 @@ class Actividad {
   agregarAlumno(alumno) {
     if (this._alumnos.length < Actividad.MAX_ALUMNOS) {
       this._alumnos.push(alumno);
-    } else {
-      console.log("No se pueden agregar mas alumnos");
+    } else {Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "No se pueden agregar mas alumnos ",
+      
+    });
     }
   }
   mostrarAlumnos(){
