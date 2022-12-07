@@ -18,7 +18,7 @@ class Actividad {
     this._idActividad = ++Actividad.contadorActividad;
     this._nombre = nombre;
     this._cuota = cuota;
-    this._alumnos = [];
+    this._alumnos = [] ;
   }
 
   //get y set de la clase
@@ -37,6 +37,7 @@ class Actividad {
   set cuota(cuota) {
     this._cuota = cuota;
   }
+ 
 
 
   // get alumnos(){
@@ -45,22 +46,18 @@ class Actividad {
   // set alumnos(alumnos) {
   //   this._alumnos = alumnos;
   // }
-  // get cuota() {
-  //   return this._cuota;
-  // }
-  // set cuota(cuota) {
-  //   this._cuota = cuota;
-  // }
+ 
 
   // metodo para agregar un alumno a la actividad
   agregarAlumno(alumno) {
     if (this._alumnos.length < Actividad.MAX_ALUMNOS) {
-      this._alumnos.push(alumno);
+    this._alumnos.push(alumno);
+
     } else {Swal.fire({
       icon: "error",
       title: "Oops...",
       text: "No se pueden agregar mas alumnos ",
-      
+
     });
     }
   }

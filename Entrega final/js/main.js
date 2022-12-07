@@ -91,47 +91,47 @@ form.addEventListener("submit", (event) => {
 //     contenedorTable.append(item);
 //   });
 // });
-alumnos = [];
+// localStorage.setItem("clase", JSON.stringify(clases));
 const alumnoIngresado = () => {
   let form1 = JSON.parse(localStorage.getItem("datos")) || [];
-
+  
+  const alumnos = [];
   for (const dato of form1) {
     let nombre = capitalizarPrimeraLetra(dato.nombre);
     let apellido = capitalizarPrimeraLetra(dato.apellido);
     alumnos.push(new Socio(nombre, apellido));
-    //  let alum = alumnos.reduce(
-    //    (acc, el) => ({ ...acc, [el._apellido]: el }),
-    //    {}
-    //  );
+    // let alum = alumnos.reduce(
+    //      (acc, el) => ({ ...acc, [el._apellido]: el }),
+    //      {}
+    //    );
+      
+    }
+    localStorage.setItem("socio", JSON.stringify(alumnos));
     
-  }
-  
-  localStorage.setItem("socio", JSON.stringify(alumnos));
-};
-
-const ShowSelected = () => {
-  /* Para obtener el texto */
-  var combo = document.getElementById("actividad");
-  var selected = combo.options[combo.selectedIndex].text;
-  localStorage.setItem("select", JSON.stringify(selected));
+  };
+  // funcion para guardar el dato del select
+  const ShowSelected = () => {
+    /* Para obtener el texto */
+    var combo = document.getElementById("actividad");
+    var selected = combo.options[combo.selectedIndex].text;
+    localStorage.setItem("select", JSON.stringify(selected));
 }
 
 
-const formulario = JSON.parse(localStorage.getItem("datos")) || [];
-// console.log(formulario);
-const filtro = formulario.map((el) => el.actividad);
-const pilates = filtro.filter((el) => el === "Pilates");
+// const formulario = JSON.parse(localStorage.getItem("datos")) || [];
+// // console.log(formulario);
+// const filtro = formulario.map((el) => el.actividad);
+// const pilates = filtro.filter((el) => el === "Pilates");
 
-const yoga = filtro.filter((el) => el === "Yoga");
+// const yoga = filtro.filter((el) => el === "Yoga");
 
 // console.log(pilates.actividad);
 // const yoga = formulario.filter((el) => el.actividad.includes("Yoga"));
 // const pila = pilates.reduce((acc, el) => ({ ...acc, [el.pilates]: el }), {});
 // console.log(pila);
 
-localStorage.setItem("clase", JSON.stringify(clases));
 
-const claseStorage = JSON.parse(localStorage.getItem("clase"));
+// const claseStorage = JSON.parse(localStorage.getItem("clase"));
 
 // const contenedor = document.querySelector("#alumnos");
 
@@ -164,23 +164,28 @@ const claseStorage = JSON.parse(localStorage.getItem("clase"));
 // }
 let select = JSON.parse(localStorage.getItem("select"));
 
+
 alumnoIngresado();
 let alums = JSON.parse(localStorage.getItem("socio"))|| [];
-console.log(alums);
+ let alum = alums.reduce(
+       (acc, el) => ({ ...acc, [el._apellido]: el }),
+       {}
+     );
 
-const getLastArrItem = (arr) => {
-  let lastItem = arr[arr.length - 1];
-  return lastItem
-};
-alumnoIngresado(alums);
+console.log(alum);
+
+
+
+
+// const getLastArrItem = (array) => {
+//   let lastItem = array[array.length - 1];
   
-
-
+// };  
 if (select === "Pilates") {
   console.log("hola");
-    
-    clases[0].agregarAlumno();
   
+  clases[0].agregarAlumno(alum);
+  console.log(clases[0]);
     
     localStorage.setItem("clasePilates", JSON.stringify(clases[0]));
   let datosGuardadosPilates = JSON.parse(localStorage.getItem("clasePilates"));
@@ -244,70 +249,3 @@ for (const alumno of alums) {
 
   contenedor.append(item);
 }
-
-// } else if (claseCapturada[i].clase === claseStorage[1].clase) {
-//   // for (const formu of form1) {
-//   //   let nombre = formu.nombre;
-//   //   let apellido = formu.apellido;
-
-//   //   alumnos.push(new Socio(nombre, apellido));
-//   //   // localStorage.setItem("socios", JSON.stringify(alumnos));
-//   // }
-//   // for (const socio of alumnos) {
-//   //   let yoga1 = socio;
-
-//   //   clases[1].agregarAlumno(yoga1);
-//   // }
-
-//   let nombre = form1[i].nombre;
-//   let apellido = form1[i].apellido;
-//   let alumnoPila = new Socio(nombre, apellido);
-//   // localStorage.setItem("socios", JSON.stringify(alumnos));
-
-//   // traerDatos();
-//   let yogaFinal = new Actividad(clase[1], alumnoPila);
-
-//   localStorage.setItem("yoga", JSON.stringify(yogaFinal));
-
-//   let datosGuardadosYoga = JSON.parse(localStorage.getItem("yoga"));
-
-//   let contenedorTable = document.getElementById("alumnos");
-//   let item = document.createElement("ul");
-
-//   item.innerHTML = `
-//     <h3>Clase: ${datosGuardadosYoga._nombre.clase}</h3>
-//     <li>Nombre: ${datosGuardadosYoga._alumnos._nombre}  ${datosGuardadosYoga._alumnos._apellido}
-//         </li>
-//     <li>Cuota: ${datosGuardadosYoga._nombre.cuota} </li>
-//     <li>Profesor : ${datosGuardadosYoga._nombre.entrenadores.nombre} ${datosGuardadosYoga._nombre.entrenadores.apellido}</li>
-//     <hr/>
-//     `;
-
-//   contenedorTable.append(item);
-// } else {
-//   for (const clase of alumnos) {
-//     let danzas1 = clase;
-//     clases[2].agregarAlumno(danzas1);
-//   }
-//   let danzasFinal = clases[2];
-
-//   localStorage.setItem("danzas", JSON.stringify(danzasFinal));
-
-//   let datosGuardadosDanzas = JSON.parse(localStorage.getItem("danzas"));
-
-//   let contenedorTable = document.getElementById("alumnos");
-//   let item = document.createElement("ul");
-
-//   item.innerHTML = `
-//     <h3>Clase: ${datosGuardadosDanzas._nombre}</h3>
-//     <li>Nombre: ${datosGuardadosDanzas._alumnos[1]._nombre}
-//       ${datosGuardadosDanzas._alumnos[1]._apellido}  </li>
-//     <li>Cuota: ${datosGuardadosDanzas._cuota} </li>
-//     <li>Profesor :  </li>
-//      <hr/>
-//     `;
-
-//   contenedorTable.append(item);
-// }
-
-// Guardo los datos para mostrar de forma permanente los datos en la pantalla, por mas que se recargue
