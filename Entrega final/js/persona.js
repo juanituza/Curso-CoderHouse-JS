@@ -25,9 +25,5 @@ class Persona {
   set apellido(apellido) {
    this._apellido = apellido;
   }
-
-  // metodo toString para retornar datos de la clase.
-  toString() {
-    return `id persona: ${this._idPersona}, Nombre: ${this._nombre}, Apellido: ${this._apellido}`;
-  }
+  
 }

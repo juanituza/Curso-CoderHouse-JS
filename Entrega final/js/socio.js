@@ -20,11 +20,4 @@ class Socio extends Persona {
   set actividad(actividad) {
     this._actividad=actividad;
   }
-  
-  // // metodo toString para retornar datos de la clase.
-  // toString() {
-  //   return `${super.toString()}, Número de socio:${
-  //     this._idSocio
-  //   }, Cuota social:$${this._cuota}`;
-  // }
 }
