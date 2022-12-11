@@ -14,11 +14,11 @@ class Actividad {
   }
 
   //conmstructor de la actividad
-  constructor(nombre,cuota) {
+  constructor(nombre,cuota,entrenadores) {
     this._idActividad = ++Actividad.contadorActividad;
     this._nombre = nombre;
     this._cuota = cuota;
-    this._alumnos = [] ;
+    this._entrenadores= entrenadores;
   }
 
   //get y set de la clase
@@ -32,10 +32,16 @@ class Actividad {
     this._nombre = nombre;
   }
   get cuota() {
-    return this.cuota;
+    return this._cuota;
   }
   set cuota(cuota) {
     this._cuota = cuota;
+  }
+  get entrenadores() {
+    return this._entrenadores;
+  }
+  set entrenadores(entrenadores) {
+    this._entrenadores = entrenadores;
   }
  
 

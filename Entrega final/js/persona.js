@@ -11,19 +11,19 @@ class Persona {
   }
   // get y set clase persona
   get idPersona() {
-    return this.idPersona;
+    return this._idPersona;
   }
   get nombre() {
-    return this.nombre;
+    return this._nombre;
   }
   set nombre(nombre) {
-    return (this._nombre = nombre);
+     this._nombre = nombre;
   }
   get apellido() {
     return this._apellido;
   }
   set apellido(apellido) {
-    return (this._apellido = apellido);
+   this._apellido = apellido;
   }
 
   // metodo toString para retornar datos de la clase.

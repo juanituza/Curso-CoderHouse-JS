@@ -35,39 +35,55 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <form id="formulario" action="">
-            <div class="col-6">
-              <label for="nombre" class="mx-5">Nombre:</label>
-              <input
+          <form id="formulario" class="formulario needs-validation" novalidate action="">
+            <div class="col-6 formulario__grupo" id="nombre1">
+              <label for="nombre" class="mx-5 form-label">Nombre:</label>
+              <div class="formulario__grupo-input">
+
+                <input
                 type="text"
-                class="form-control shadow mx-5 mb-3"
+                class="form-control shadow mx-5 mb-3 formulario__input"
                 name="nombre"
                 id="nombre"
                 value=""
-              />
+                placeholder="Nombre"
+                />
+                
+              </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 ">
               <label for="apellido" class="mx-5">Apellido:</label>
               <input
                 type="text"
                 class="form-control shadow mx-5 mb-3"
                 name="apellido"
                 id="apellido"
+                placeholder="Apellido"
               />
             </div>
             <div class="col-6">
-              <label class="mx-5 form-label" for="lstGenero">Clases:</label>
-              <select
-                class="form-select shadow mx-5 mb-3"
-                name="actividad"
-                id="actividad"
-                onchange="ShowSelected();"
-              ></select>
+     
+               <label for="clase" class="mx-5 form-label">Clase:</label>
+              <input
+                type="text"
+                class="form-control shadow mx-5 "
+                name="clase"
+                id="clase"
+                required
+                placeholder="Pilates/Yoga/Danzas"
+              />
+              <div class="valid-feedback mx-5">
+                Clase válida!
+
+              </div>
+              <div class="invalid-feedback mx-5 mb-3 ">
+                Ingrese una clase válida!
+              </div>
             </div>
-            <div class="col-6">
+            <div class="col-12">
               <input
                 type="submit"
-                class="btn btn-primary mx-5 mb-3"
+                class="btn btn-primary shadow col-6 mx-5 m-5"
                 name="añadir"
                 id="añadir"
                 value="Añadir"
@@ -76,6 +92,21 @@
           </form>
         </div>
       <div class="col-10 mx-5" id="alumnos">
+        <ul id="Pilates">
+          <hr>
+          <hr>
+          <h3>Pilates</h3>
+        </ul>
+        <ul id="Yoga">
+          <hr>
+          <hr>
+          <h3>Yoga</h3>
+        </ul>
+        <ul id="Danzas">
+          <hr>
+          <hr>
+          <h3>Danzas</h3>
+        </ul>
 
 
 

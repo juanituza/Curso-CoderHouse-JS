@@ -6,26 +6,25 @@ class Socio extends Persona {
   static contadorSocio = 0;
 
   // funcion constructor
-  constructor(nombre, apellido, cuota) {
+  constructor(nombre, apellido, actividad) {
     super(nombre, apellido);
     this._idSocio = ++Socio.contadorSocio;
-    this._cuota = cuota;
-    // this._clase = acti;
+    this._actividad = actividad;
   }
   get idSocio() {
     return this.idSocio;
   }
-  get cuota() {
-    return this._cuota;
+  get actividad() {
+    return this._actividad;
   }
-  set cuota(cuota) {
-    this._cuota = cuota;
+  set actividad(actividad) {
+    this._actividad=actividad;
   }
-
-  // metodo toString para retornar datos de la clase.
-  toString() {
-    return `${super.toString()}, Número de socio:${
-      this._idSocio
-    }, Cuota social:$${this._cuota}`;
-  }
+  
+  // // metodo toString para retornar datos de la clase.
+  // toString() {
+  //   return `${super.toString()}, Número de socio:${
+  //     this._idSocio
+  //   }, Cuota social:$${this._cuota}`;
+  // }
 }
